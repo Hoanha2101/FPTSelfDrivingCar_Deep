@@ -2,6 +2,9 @@ DIRECTION_LEFT = "L"
 DIRECTION_RIGHT = "R"
 DIRECTION_STRAIGHT = "S"
 
+# Phần trăm mặt đường sẽ lấy
+per_len_lane = 0.9
+
 # Ngưỡng quay bánh lại
 back_threshold = 5
 
@@ -9,7 +12,7 @@ back_threshold = 5
 threshold_scale = 5 
 
 # Ngưỡng thu report 
-count_control = 80
+count_control = 60
 
 # Các điểm liên quan đến xe (điểm trụ sở, padding từ 2 bên)
 car_length_padding = 100

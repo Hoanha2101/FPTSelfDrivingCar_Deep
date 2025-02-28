@@ -1,7 +1,7 @@
 import cv2
 import math
 import numpy as np
-from utils_func import CLEAN_DATA_CSV_DIRECTION, ADD_DATA_CSV_MASK_DIRECTION, ADD_DATA_CSV_DIRECTION_STRAIGHT, CLEAN_DATA_CSV_DIRECTION_STRAIGHT,CHECK_PUSH, csv_path, csv_mask_path, csv_straight_path
+from utils_func import CLEAN_DATA_CSV_DIRECTION, ADD_DATA_CSV_MASK_DIRECTION, ADD_DATA_CSV_DIRECTION_STRAIGHT, CLEAN_DATA_CSV_DIRECTION_STRAIGHT,CHECK_PUSH, csv_path, csv_mask_path, csv_straight_path, csv_back_control_path, CLEAN_DATA_CSV_BACK_CONTROL
 from ultrafastLaneDetector import UltrafastLaneDetector, ModelType, ModelConfig
 import pandas as pd
 from setting_AI import *
@@ -53,6 +53,7 @@ car_center_top = (car_center_bottom[0], 0)
 
 CLEAN_DATA_CSV_DIRECTION()
 CLEAN_DATA_CSV_DIRECTION_STRAIGHT()
+CLEAN_DATA_CSV_BACK_CONTROL()
 
 dr_back_control = None
 an_back_control = None
@@ -135,6 +136,8 @@ def AI(frame, paint = False, resize_img = True):
         if dr_back_control is not None and an_back_control is not None:
             df_csv_ = pd.read_csv(csv_straight_path)
             if len(df_csv_) - len_csv_control_back >= back_threshold:
+                df_back_control_csv = pd.read_csv(csv_back_control_path)
+                an_back_control = sum(df_back_control_csv["angle"])
 
                 if dr_back_control == DIRECTION_RIGHT:
                     push_back = f"{DIRECTION_LEFT}:{an_back_control:03d}"
@@ -146,6 +149,7 @@ def AI(frame, paint = False, resize_img = True):
                 dr_back_control = None
                 an_back_control = None
                 len_csv_control_back = None
+                CLEAN_DATA_CSV_BACK_CONTROL()
     
     if resize_img:    
         visualization_img = cv2.resize(visualization_img, (visualization_img.shape[1] // 2, visualization_img.shape[0] // 2))

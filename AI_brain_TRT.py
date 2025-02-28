@@ -10,7 +10,7 @@ from PIL import Image
 import torchvision.transforms as transforms
 import scipy.special
 from setting_AI import *
-from utils_func import CLEAN_DATA_CSV_DIRECTION, ADD_DATA_CSV_MASK_DIRECTION, ADD_DATA_CSV_DIRECTION_STRAIGHT, CLEAN_DATA_CSV_DIRECTION_STRAIGHT,CHECK_PUSH, csv_path, csv_mask_path, csv_straight_path
+from utils_func import CLEAN_DATA_CSV_DIRECTION, ADD_DATA_CSV_MASK_DIRECTION, ADD_DATA_CSV_DIRECTION_STRAIGHT, CLEAN_DATA_CSV_DIRECTION_STRAIGHT,CHECK_PUSH, csv_path, csv_mask_path, csv_straight_path, csv_back_control_path, CLEAN_DATA_CSV_BACK_CONTROL
 import pandas as pd
 import math
 
@@ -137,7 +137,7 @@ def draw_lanes(input_img, lanes_points, lanes_detected, draw_points=True):
 			lane_length = y_lane_bottom - y_lane_top
 			
 			# Xác định ngưỡng y cho 90% chiều dài (phần gần camera)
-			y_threshold = y_lane_bottom - 0.9 * lane_length
+			y_threshold = y_lane_bottom - per_len_lane * lane_length
 			
 			# Lọc các điểm của lane theo ngưỡng y (chỉ lấy phần gần camera)
 			left_points_90 = [point for point in lanes_points[1] if point[1] >= y_threshold]
@@ -202,6 +202,7 @@ car_center_top = (car_center_bottom[0], 0)
 
 CLEAN_DATA_CSV_DIRECTION()
 CLEAN_DATA_CSV_DIRECTION_STRAIGHT()
+CLEAN_DATA_CSV_BACK_CONTROL()
 
 dr_back_control = None
 an_back_control = None
@@ -288,7 +289,10 @@ def AI_TRT(frame, paint = False, resize_img = True):
         
         if dr_back_control is not None and an_back_control is not None:
             df_csv_ = pd.read_csv(csv_straight_path)
+            
             if len(df_csv_) - len_csv_control_back >= back_threshold:
+                df_back_control_csv = pd.read_csv(csv_back_control_path)
+                an_back_control = sum(df_back_control_csv["angle"])
 
                 if dr_back_control == DIRECTION_RIGHT:
                     push_back = f"{DIRECTION_LEFT}:{an_back_control:03d}"
@@ -300,6 +304,7 @@ def AI_TRT(frame, paint = False, resize_img = True):
                 dr_back_control = None
                 an_back_control = None
                 len_csv_control_back = None
+                CLEAN_DATA_CSV_BACK_CONTROL()
     
     if resize_img:    
         visualization_img = cv2.resize(visualization_img, (visualization_img.shape[1] // 2, visualization_img.shape[0] // 2))

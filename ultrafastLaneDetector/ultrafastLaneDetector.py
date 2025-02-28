@@ -9,6 +9,7 @@ import torchvision.transforms as transforms
 from PIL import Image
 from enum import Enum
 from scipy.spatial.distance import cdist
+from setting_AI import *
 
 
 from ultrafastLaneDetector.model import parsingNet
@@ -212,7 +213,7 @@ class UltrafastLaneDetector():
 			lane_length = y_lane_bottom - y_lane_top
 			
 			# Xác định ngưỡng y cho 90% chiều dài (phần gần camera)
-			y_threshold = y_lane_bottom - 0.9 * lane_length
+			y_threshold = y_lane_bottom - per_len_lane * lane_length
 			
 			# Lọc các điểm của lane theo ngưỡng y (chỉ lấy phần gần camera)
 			left_points_90 = [point for point in lanes_points[1] if point[1] >= y_threshold]

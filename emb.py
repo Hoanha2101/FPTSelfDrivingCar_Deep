@@ -22,7 +22,7 @@ while cap.isOpened():
     # Hiển thị FPS lên hình
     elapsed_time = time.time() - start_time
     fps = 1 / elapsed_time if elapsed_time > 0 else 0
-    print(f"FPS: {fps:.2f}")
+    # print(f"FPS: {fps:.2f}")
     
     cv2.imshow("Detected lanes", visualization_img)
     
