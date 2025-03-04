@@ -1,32 +1,27 @@
 import cv2
+import time
 
-# Mở camera (0 là camera mặc định, có thể thay đổi nếu có nhiều camera)
-cap = cv2.VideoCapture("videos/test3.avi")
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+
+
 
 if not cap.isOpened():
     print("Không thể mở camera")
     exit()
 
 while True:
-    # Đọc khung hình từ camera
+    start_time = time.time()
     ret, frame = cap.read()
-    frame = cv2.resize(frame, (1280, 720))
-    print(frame.shape)
     if not ret:
         print("Không thể nhận dữ liệu từ camera")
         break
 
-    # Hiển thị khung hình
+    fps = 1.0 / (time.time() - start_time)  # Tính FPS
+    print(f"FPS: {fps:.2f}")
+
     cv2.imshow('Camera', frame)
-
-    # Nhấn 'q' để thoát, 's' để chụp ảnh
-    key = cv2.waitKey(1) & 0xFF
-    if key == ord('q'):
+    if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-    elif key == ord('s'):
-        cv2.imwrite("captured_image.jpg", frame)
-        print("Ảnh đã được lưu: captured_image.jpg")
 
-# Giải phóng tài nguyên
 cap.release()
 cv2.destroyAllWindows()

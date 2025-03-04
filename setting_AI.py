@@ -1,5 +1,5 @@
-DIRECTION_LEFT = "L"
-DIRECTION_RIGHT = "R"
+DIRECTION_LEFT = "X"
+DIRECTION_RIGHT = "Y"
 DIRECTION_STRAIGHT = "S"
 
 # Phần trăm mặt đường sẽ lấy
@@ -16,7 +16,6 @@ count_control = 60
 
 # Các điểm liên quan đến xe (điểm trụ sở, padding từ 2 bên)
 car_length_padding = 100
-
 
 # Setting TensorRT
 input_names = ['images']

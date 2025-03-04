@@ -283,7 +283,7 @@ def AI_TRT(frame, paint = False, resize_img = True):
             df_csv_ = pd.read_csv(csv_straight_path)
             len_csv_control_back = len(df_csv_)
             
-            print("Push_next:",push)
+            # print("Push_next:",push)
             
             PUSH_RETURN = push
         
@@ -299,7 +299,7 @@ def AI_TRT(frame, paint = False, resize_img = True):
                 else:
                     push_back = f"{DIRECTION_RIGHT}:{an_back_control:03d}"
                     
-                print("Push_back:", push_back)
+                # print("Push_back:", push_back)
                 PUSH_RETURN = push_back
                 dr_back_control = None
                 an_back_control = None
