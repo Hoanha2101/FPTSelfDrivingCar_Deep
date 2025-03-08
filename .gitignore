@@ -1,3 +1,45 @@
+# Ignore toàn bộ thư mục videos và models ở root
 videos/
 models/
-PGAME/
+
+# Ignore toàn bộ thư mục videos và models trong PGAME
+PGAME/videos/
+PGAME/models/
+
+# Chỉ ignore các file Python cụ thể trong PGAME
+PGAME/AI_brain_TRT_v2.py
+PGAME/AI_brain_TRT.py
+PGAME/AI_DEEP_one_lane.py
+PGAME/APP_DEEP_one_lane.py
+PGAME/app_simple_v1.py
+PGAME/app_simple.py
+PGAME/APP_v2.py
+PGAME/APP.py
+PGAME/emb.py
+PGAME/image_processing.py
+PGAME/simple.py
+PGAME/utils_func_v2.py
+PGAME/utils_func.py
+PGAME/v_test.py
+
+# Ignore tất cả file log, cache, temporary files
+*.log
+*.cache
+*.tmp
+*.bak
+*.swp
+.DS_Store
+
+# Ignore Python compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore environment files
+.env
+.vscode/
+.idea/
+*.venv
+venv/
+.envrc
