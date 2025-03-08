@@ -5,9 +5,9 @@ import time
 import sys
 
 
-# cap = cv2.VideoCapture("videos/d.mp4")
+cap = cv2.VideoCapture("videos/f.avi")
 
-cap =cv2.VideoCapture(0, cv2.CAP_DSHOW)
+# cap =cv2.VideoCapture(1, cv2.CAP_DSHOW)
 
 
 ROTATION_SPEED = 10  # Tốc độ quay:  độ/s

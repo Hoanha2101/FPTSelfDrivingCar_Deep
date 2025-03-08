@@ -1,8 +1,7 @@
 import cv2
 import time
 
-cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
-
+cap = cv2.VideoCapture(1, cv2.CAP_DSHOW)
 
 
 if not cap.isOpened():
@@ -12,12 +11,11 @@ if not cap.isOpened():
 while True:
     start_time = time.time()
     ret, frame = cap.read()
+    print(frame.shape)
     if not ret:
         print("Không thể nhận dữ liệu từ camera")
         break
 
-    fps = 1.0 / (time.time() - start_time)  # Tính FPS
-    print(f"FPS: {fps:.2f}")
 
     cv2.imshow('Camera', frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):

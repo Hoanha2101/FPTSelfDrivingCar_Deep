@@ -61,7 +61,8 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Camera App")
 
 # Khởi tạo camera
-camera = cv2.VideoCapture(0)
+
+camera =cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
 out = cv2.VideoWriter(filename, get_video_type(filename), 25, get_dims(camera, res))
 

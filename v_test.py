@@ -7,7 +7,7 @@ import serial
 # cap = cv2.VideoCapture(1)
 
 serial_port = serial.Serial(
-    port="COM5",
+    port="COM8",
     baudrate=9600,
     bytesize=serial.EIGHTBITS,
     parity=serial.PARITY_NONE,
@@ -21,14 +21,20 @@ if not serial_port.is_open:
 # Wait a second to let the port initialize
 time.sleep(1)
 while True:
-    PUSH_RETURN = "Y:030"
-    print(PUSH_RETURN)
-    # serial_port.write(PUSH_RETURN.encode())
-    # serial_port.write((PUSH_RETURN + "\r\n").encode())
-    
+    PUSH_RETURN = "Y:010"
+    print(PUSH_RETURN)    
     bytes_written = serial_port.write(PUSH_RETURN.encode())
     print(f"Bytes sent: {bytes_written}")
-
-
+    time.sleep(1)
+    bytes_written = serial_port.write("x:000".encode())
+    time.sleep(1)
+    # PUSH_RETURN = "X:000"
+    # print(PUSH_RETURN)    
+    # bytes_written = serial_port.write(PUSH_RETURN.encode())
+    print(f"Bytes sent: {bytes_written}")
+    bytes_written = serial_port.write("X:000".encode())
+    time.sleep(1)
+    bytes_written = serial_port.write("x:000".encode())
     time.sleep(2)
     
+    break

@@ -1,15 +1,14 @@
 import cv2
-# from AI_brain import AI
+from AI_brain import AI
 from AI_brain_TRT import AI_TRT
 import time
 import serial
 import sys
-from setting_AI import *
 
-cap =cv2.VideoCapture(0, cv2.CAP_DSHOW)
+cap =cv2.VideoCapture(1, cv2.CAP_DSHOW)
 
 serial_port = serial.Serial(
-    port="COM8",
+    port="COM5",
     baudrate=9600,
     bytesize=serial.EIGHTBITS,
     parity=serial.PARITY_NONE,
@@ -19,7 +18,7 @@ serial_port = serial.Serial(
 # Wait a second to let the port initialize
 time.sleep(1)
 
-
+ROTATION_SPEED = 10  # Tốc độ quay:  độ/s
 time_stop = sleep_time = sys.maxsize
 
 while True:
